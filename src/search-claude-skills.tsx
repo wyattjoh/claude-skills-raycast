@@ -1,15 +1,16 @@
 import { List, ActionPanel, Action } from "@raycast/api";
 import { usePromise } from "@raycast/utils";
-import { readdirSync, readFileSync } from "node:fs";
+import { readdirSync } from "node:fs";
 import { join } from "node:path";
 import { homedir } from "node:os";
-import matter from "gray-matter";
+import {
+  type MarkdownEntry,
+  extractKeywords,
+  parseMarkdownFile,
+} from "./shared";
 
-interface Skill {
-  name: string;
+interface Skill extends MarkdownEntry {
   directory: string;
-  path: string;
-  body: string;
 }
 
 const SKILLS_DIR = join(homedir(), ".claude", "skills");
@@ -23,14 +24,10 @@ function loadSkills(): Skill[] {
     if (!entry.isDirectory()) continue;
 
     const skillPath = join(SKILLS_DIR, entry.name, "SKILL.md");
-    let raw: string;
-    try {
-      raw = readFileSync(skillPath, "utf-8");
-    } catch {
-      continue;
-    }
+    const parsed = parseMarkdownFile(skillPath);
+    if (!parsed) continue;
 
-    const { data, content } = matter(raw);
+    const { data, content } = parsed;
     if (!data.name) continue;
 
     skills.push({
@@ -38,6 +35,7 @@ function loadSkills(): Skill[] {
       directory: entry.name,
       path: skillPath,
       body: content.trim(),
+      keywords: extractKeywords(data, content),
     });
   }
 
@@ -59,6 +57,7 @@ export default function SearchClaudeSkills() {
         <List.Item
           key={skill.directory}
           title={`/${skill.directory}`}
+          keywords={skill.keywords}
           detail={<List.Item.Detail markdown={skill.body} />}
           actions={
             <ActionPanel>

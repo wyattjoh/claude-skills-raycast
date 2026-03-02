@@ -15,6 +15,12 @@
       "title": "Search Claude Skills",
       "description": "Browse and search your Claude Code skills",
       "mode": "view"
+    },
+    {
+      "name": "search-claude-agents",
+      "title": "Search Claude Agents",
+      "description": "Browse and search your custom Claude Code agents",
+      "mode": "view"
     }
   ],
   "dependencies": {

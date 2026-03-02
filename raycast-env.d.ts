@@ -15,10 +15,14 @@ declare type Preferences = ExtensionPreferences
 declare namespace Preferences {
   /** Preferences accessible in the `search-claude-skills` command */
   export type SearchClaudeSkills = ExtensionPreferences & {}
+  /** Preferences accessible in the `search-claude-agents` command */
+  export type SearchClaudeAgents = ExtensionPreferences & {}
 }
 
 declare namespace Arguments {
   /** Arguments passed to the `search-claude-skills` command */
   export type SearchClaudeSkills = {}
+  /** Arguments passed to the `search-claude-agents` command */
+  export type SearchClaudeAgents = {}
 }
 
