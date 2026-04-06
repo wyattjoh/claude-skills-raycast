@@ -30,12 +30,12 @@
   },
   "devDependencies": {
     "@raycast/eslint-config": "^2.1.1",
-    "@types/node": "25.5.0",
+    "@types/node": "25.5.2",
     "@types/react": "19.2.14",
-    "eslint": "^10.1.0",
+    "eslint": "^10.2.0",
     "prettier": "^3.5.3",
     "typescript": "^6.0.2",
-    "typescript-eslint": "^8.56.1"
+    "typescript-eslint": "^8.58.0"
   },
   "scripts": {
     "build": "ray build",
